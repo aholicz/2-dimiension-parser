@@ -1,0 +1,1 @@
+Refactoring 2 dimension array of raw string parse into struct , question from golang thailand.

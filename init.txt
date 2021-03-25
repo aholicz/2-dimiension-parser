@@ -1,0 +1,30 @@
+package main
+
+import (
+	"fmt"
+	"encoding/json"
+	"strconv"
+)
+
+type Person struct {
+	Name string
+	Age int64
+	Speed float64
+}
+
+func main() {
+	body := "[[\"Alice\", 18, \"1.234\"], [\"Bob\", 40, \"4.567\"]]"
+	var data [][]interface{} 
+	json.Unmarshal([]byte(body), &data)
+	var people []Person
+	var person Person
+	for _, d := range data {
+		person.Name = d[0].(string)
+		person.Age = int64(d[1].(float64))
+		if v, err := strconv.ParseFloat(d[2].(string), 64); err == nil {
+			person.Speed = v
+		}
+		people = append(people, person)
+	}
+	fmt.Printf("%+v", people)
+}
